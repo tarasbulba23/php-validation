@@ -22,7 +22,7 @@
     },
     "autoload": {
         "classmap": [
-            "ipgeobase.php"
+            "Validator.php"
          ]
     }
 }
