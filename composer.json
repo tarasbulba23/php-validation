@@ -1,0 +1,28 @@
+{
+    "name": "hundredminds/php-validation",
+    "version" : "1.0",
+    "type": "library",
+    "description": "A PHP 5.3 Class for Easy Form Validation, forked from blackbelt/php-validation",
+    "keywords": ["validation"],
+    "authors": [
+        {
+            "name": "Tasos Bekos"
+        },
+        {
+            "name": "Timur Baymbetov",
+            "email": "timur@baymbetov.com"
+        },
+        {
+            "name": "Corey Ballou",
+            "email": "admins@blackbe.lt"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "classmap": [
+            "ipgeobase.php"
+         ]
+    }
+}
