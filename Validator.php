@@ -36,7 +36,7 @@ class Validator {
      *
      * @access public
      * @param mixed $data
-     * @return FormValidator
+     * @return Validator
      */
     public function setData(array $data) {
         $this->data = $data;
@@ -49,7 +49,7 @@ class Validator {
      * Field, if completed, has to be a valid email address.
      *
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function email($message = null) {
         $this->setRule(__FUNCTION__, function($email) {
@@ -101,7 +101,7 @@ class Validator {
      * Field must be filled in.
      *
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function required($message = null) {
         $this->setRule(__FUNCTION__, function($val) {
@@ -117,7 +117,7 @@ class Validator {
      * Field must contain a valid float value.
      *
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function float($message = null) {
         $this->setRule(__FUNCTION__, function($val) {
@@ -130,7 +130,7 @@ class Validator {
      * Field must contain a valid integer value.
      *
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function integer($message = null) {
         $this->setRule(__FUNCTION__, function($val) {
@@ -144,7 +144,7 @@ class Validator {
      * This is just like integer(), except there is no upper limit.
      *
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function digits($message = null) {
         $this->setRule(__FUNCTION__, function($val) {
@@ -159,7 +159,7 @@ class Validator {
      * @param numeric $limit
      * @param bool $include Whether to include limit value.
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function min($limit, $include = TRUE, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -182,7 +182,7 @@ class Validator {
      * @param numeric $limit
      * @param bool $include Whether to include limit value.
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function max($limit, $include = TRUE, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -206,7 +206,7 @@ class Validator {
      * @param numeric $max
      * @param bool $include Whether to include limit value.
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function between($min, $max, $include = TRUE, $message = null) {
         $message = $this->_getDefaultMessage(__FUNCTION__, array($min, $max, $include));
@@ -220,7 +220,7 @@ class Validator {
      *
      * @param int $len
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function minlength($len, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -234,7 +234,7 @@ class Validator {
      *
      * @param int $len
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function maxlength($len, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -248,10 +248,10 @@ class Validator {
      *
      * @param   int $minlength
      * @param   int $maxlength
-     * @
+     * @return Validator
      */
     public function betweenlength($minlength, $maxlength, $message = null) {
-        $message = empty($message) ? self::getDefaultMessage(__FUNCTION__, array($minlength, $maxlength)) : NULL;
+        $message = empty($message) ? self::_getDefaultMessage(__FUNCTION__, array($minlength, $maxlength)) : NULL;
 
         $this->minlength($minlength, $message)->max($maxlength, $message);
         return $this;
@@ -262,7 +262,7 @@ class Validator {
      *
      * @param int $len
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function length($len, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -277,7 +277,7 @@ class Validator {
      * @param string $field
      * @param string $label
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function matches($field, $label, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -292,7 +292,7 @@ class Validator {
      * @param string $field
      * @param string $label
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function notmatches($field, $label, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -306,7 +306,7 @@ class Validator {
      *
      * @param string $sub
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function startsWith($sub, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -321,7 +321,7 @@ class Validator {
      *
      * @param string $sub
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function notstartsWith($sub, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -336,7 +336,7 @@ class Validator {
      *
      * @param string $sub
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function endsWith($sub, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -351,7 +351,7 @@ class Validator {
      *
      * @param string $sub
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function notendsWith($sub, $message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -365,7 +365,7 @@ class Validator {
      * Field has to be valid IP address.
      *
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function ip($message = null) {
         $this->setRule(__FUNCTION__, function($val) {
@@ -378,7 +378,7 @@ class Validator {
      * Field has to be valid internet address.
      *
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function url($message = null) {
         $this->setRule(__FUNCTION__, function($val) {
@@ -400,7 +400,7 @@ class Validator {
      * Field has to be a valid date.
      *
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function date($message = null) {
         $this->setRule(__FUNCTION__, function($val, $args) {
@@ -426,7 +426,7 @@ class Validator {
      * @param   string|int  $date       Limit date
      * @param   string      $format     Date format
      * @param   string      $message
-     * @return FormValidator
+     * @return Validator
      */
     public function minDate($date = 0, $format = null, $message = null) {
         if (empty($format)) {
@@ -456,7 +456,7 @@ class Validator {
      * @param string|integer $date Limit date.
      * @param string $format Date format.
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function maxDate($date = 0, $format = null, $message = null) {
         if (empty($format)) {
@@ -485,7 +485,7 @@ class Validator {
      *
      * @see https://github.com/funkatron/inspekt/blob/master/Inspekt.php
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function ccnum($message = null) {
         $this->setRule(__FUNCTION__, function($value) {
@@ -517,7 +517,7 @@ class Validator {
      *
      * @param string|array $allowed Allowed values.
      * @param string $message
-     * @return FormValidator
+     * @return Validator
      */
     public function oneOf($allowed, $message = null) {
         if (is_string($allowed)) {
@@ -534,15 +534,15 @@ class Validator {
 
     /**
      * callback
-     * @param   string  $name
-     * @param   mixed   $function
-     * @param   string  $message
-     * @param   mixed   $params
-     * @return  FormValidator
+     * @param   string $callback
+     * @param   string $message
+     * @param   mixed $params
+     * @throws Exception
+     * @return  Validator
      */
     public function callback($callback, $message = '', $params = array()) {
         if (is_callable($callback)) {
-        	
+
             // If an array is callable, it is a method
             if (is_array($callback)) {
                 $func = new ReflectionMethod($callback[0], $callback[1]);
@@ -577,7 +577,7 @@ class Validator {
      * add a filter callback for the data
      *
      * @param mixed $callback
-     * @return FormValidator
+     * @return Validator
      */
     public function filter($callback) {
         if(is_callable($callback)) {
