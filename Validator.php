@@ -556,9 +556,13 @@ class Validator {
                 $this->setRule($name, function($value) use ($func, $params, $callback) {
                     // Creates merged arguments array with validation target as first argument
                     $args = array_merge(array($value), (is_array($params) ? $params : array($params)));
+
                     if (is_array($callback)) {
-                        // If callback is a method, the object must be the first argument
-                        return $func->invokeArgs($callback[0], $args);
+                        if (!is_object($callback[0])) { //we assume this is static method
+                            return $func->invokeArgs(null, $args);
+                        } else {
+                            return $func->invokeArgs($callback[0], $args);
+                        }
                     } else {
                         return $func->invokeArgs($args);
                     }
@@ -566,7 +570,7 @@ class Validator {
             }
 
         } else {
-            throw new Exception(sprintf('%s is not callable.', $function));
+            throw new \RuntimeException("Invalid callback passed");
         }
 
         return $this;
