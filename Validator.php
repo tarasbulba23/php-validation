@@ -1,5 +1,7 @@
 <?php
 
+namespace HundredMinds;
+
 /**
  * Form validation library.
  *
@@ -96,6 +98,23 @@ class Validator {
         }, $message);
         return $this;
     }
+	
+    /**
+     * Field must be filled in.
+     *
+     * @param string $message
+     * @return Validator
+     */
+    public function login($message = null) {
+        $this->setRule(__FUNCTION__, function($val) {
+            if (preg_match('/^[A-Z0-9_]+$/i', $val)) {
+                return true;
+            }
+            return false;
+        }, $message);
+        return $this;
+    }
+	
 
     /**
      * Field must be filled in.
